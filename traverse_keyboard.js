@@ -15,6 +15,7 @@ var keyboard = {
 
 var beads = ["B", "E", "A", "D", "G", "C", "F"];
 var whites = ["A", "B", "C", "D", "E", "F", "G"];
+var keyboard_whites_ordering = ["C", "D", "E", "F", "G", "A", "B"];
 var circ = {
 	 '0': "C", 
 	 '1': "G",  '2': "D",   '3': "A",   '4': "E",   '5': "B",   '6': "F#",  '7': "C#", 
@@ -102,7 +103,7 @@ function _cmp_third_fifth_disp(type) {
 }
 
 function gen_chordQ() {
-	var a = Math.floor(Math.random() * 12);
+	var a = Math.floor(Math.random() * 12); // random key on the keyboard (whites and blacks)
 	var root = choose_randFromValues(keyboard, a);
 
 	var type = randomChoice(chords);
