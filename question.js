@@ -78,8 +78,16 @@ class Interval extends Question {
 	*/
 	validateAnswer(inputId, answerId) {
 		console.log("validateAnswer");
+		var userInput = document.getElementById(inputId).value;
 
-		document.getElementById(answerId).innerHTML = this.answer;
+		var extraMessage;
+		if (userInput === this.answer) {
+			extraMessage = "CORRECT!";
+		} else {
+			extraMessage = "Incorrect!";
+		}
+
+		document.getElementById(answerId).innerHTML = extraMessage + "\n" + this.answer;
 	}
 }
 

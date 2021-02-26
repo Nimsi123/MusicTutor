@@ -1,5 +1,6 @@
 const promptTagId = "prompt";
 const answerTagId = "answer";
+const inputSpaceTagId = "input-space";
 const inputTagId = "input";
 
 const submitButtonId = "submit";
@@ -19,7 +20,7 @@ function nextOnClick(qType) {
 
 	var question = genQ(qType);
 	question.postPrompt(promptTagId);
-	question.postInput(inputTagId);
+	question.postInput(inputSpaceTagId);
 
 	document.getElementById(submitButtonId).style.visibility = "visible";
 	document.getElementById(nextButtonId).style.visibility   = "hidden";
