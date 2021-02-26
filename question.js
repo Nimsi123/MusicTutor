@@ -6,58 +6,96 @@ class Question {
 	*/
 
 	constructor(prompt, answer) {
+		console.log("super");
 		this.prompt = prompt;
 		this.answer = answer;
 	}
 
-	postPrompt(promptID) {
+	postPrompt(promptId) {
 		/** Adds the prompt text to the HTML element with id = promptID. */
-
-		document.getElementById(promptID).innerHTML = prompt;
+		console.log("postPrompt");
+		document.getElementById(promptId).innerHTML = this.prompt;
 	}
 
 	/** Adds the input site to the HTML element with id = inputID. 
 	*/
-	postInput(inputID) {
+	postInput(inputId) {
 	}
 
 	/** Assumes that an input site already exists. Clears the input box. 
 	*/
-	clearInput(inputID) {
+	clearInput(inputId) {
 	}
 
 	/** Validates the user's input at inputID. Outputs the answer to answerID. 
 	*/
-	check_and_postAnswer(inputID, answerID) {
+	validateAnswer(inputId, answerId) {
 	}
 
 }
 
 class Interval extends Question {
 
-	constructor(prompt, answer) {
+	constructor() {
+		var qFeatures = gen_intervalQ();
+		var prompt = "What is the inverval between " + qFeatures.start + " and " + qFeatures.end + "?";
+		var answer = qFeatures.interval;
 		super(prompt, answer);
 	}
 
 	/** Adds the input site to the HTML element with id = inputID. 
 	@override
 	*/
-	postInput(inputID) {
+	postInput(inputId) {
+		console.log("postInput");
+		var elem = document.getElementById(inputId);
+		elem.innerHTML = "";
+
+		var form = jQuery.parseHTML(`
+			<form>
+			  <div class="form-group">
+			    <input class="form-control" id="input" placeholder="interval">
+			  </div>
+			</form>
+		`)[1];
+
+		elem.appendChild(form);
 	}
 
 	/** Assumes that an input site already exists. Clears the input box. 
 	@override
 	*/
-	clearInput(inputID) {
+	clearInput(inputId) {
+		console.log("clearInput");
 	}
 
 	/** Returns the user's input in a friendly format. */
-	_getInput(inputID) {
+	_getInput(inputId) {
 	}
 
 	/** Validates the user's input at inputID. Outputs the answer to answerID. 
 	@override
 	*/
-	check_and_postAnswer(inputID, answerID) {
+	validateAnswer(inputId, answerId) {
+		console.log("validateAnswer");
+
+		document.getElementById(answerId).innerHTML = this.answer;
 	}
+}
+
+function genQ(qType) {
+	var question;
+	switch (qType) {
+		case "interval":
+			console.log("interval");
+			question = new Interval();
+			break;
+		case "scale":
+			console.log("scale");
+			break;
+		case "chord":
+			console.log("chord");
+			break;
+	}
+	return question;
 }

@@ -57,7 +57,7 @@
 			<div class="row">
 			  <div class="col-8">
 			 
-				<button type="button" class="btn btn-primary btn-sm pull-left" onclick="">
+				<button type="button" class="btn btn-primary btn-sm pull-left" onclick="setNextOnClick('interval')">
 					Interval
 				</button>
 				<button type="button" class="btn btn-primary btn-sm pull-left" onclick="">
@@ -87,10 +87,9 @@
 				</div>
 				<div class = "row" style = "height: 100px">
 					<div id = "input" class = "col-8">
-						Input
 					</div>
 					<div id = "submit" class = "col-4">
-						<button type="button" class="btn btn-primary btn-sm pull-right" onclick="">
+						<button type="button" class="btn btn-primary btn-sm pull-right" onclick="submitOnClick()">
 							Submit
 						</button>
 					</div>
@@ -273,7 +272,7 @@
 </footer>
 
 
-
+	<script src = "workplace.js"></script>
 	<script src = "traverse_keyboard.js"></script>
 	<script src = "question.js"></script>
 

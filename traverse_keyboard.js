@@ -73,10 +73,10 @@ function gen_intervalQ() {
 	var end = choose_randFromValues(keyboard, b);
 
 	return {
-		"start": start,
-		"end": end,
-		"interval": interval_name,
-		"distance": distance
+		start: start,
+		end: end,
+		interval: interval_name,
+		distance: distance
 	};
 }
 
