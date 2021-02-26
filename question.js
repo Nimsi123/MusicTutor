@@ -91,6 +91,63 @@ class Interval extends Question {
 	}
 }
 
+class Scale extends Question {
+
+	constructor() {
+		var qFeatures = gen_scaleQ();
+		var prompt = "What is the scale of " + qFeatures.scale_name + "?";
+		var answer = qFeatures.scale;
+		super(prompt, answer);
+	}
+
+	/** Adds the input site to the HTML element with id = inputID. 
+	@override
+	*/
+	postInput(inputId) {
+		console.log("postInput");
+		var elem = document.getElementById(inputId);
+		elem.innerHTML = "";
+
+		var form = jQuery.parseHTML(`
+			<form>
+			  <div class="form-group">
+			    <input class="form-control" id="input" placeholder="scale">
+			  </div>
+			</form>
+		`)[1];
+
+		elem.appendChild(form);
+	}
+
+	/** Assumes that an input site already exists. Clears the input box. 
+	@override
+	*/
+	clearInput(inputId) {
+		console.log("clearInput");
+	}
+
+	/** Returns the user's input in a friendly format. */
+	_getInput(inputId) {
+	}
+
+	/** Validates the user's input at inputID. Outputs the answer to answerID. 
+	@override
+	*/
+	validateAnswer(inputId, answerId) {
+		console.log("validateAnswer");
+		var userInput = document.getElementById(inputId).value;
+
+		var extraMessage;
+		if (userInput === this.answer) {
+			extraMessage = "CORRECT!";
+		} else {
+			extraMessage = "Incorrect!";
+		}
+
+		document.getElementById(answerId).innerHTML = extraMessage + "\n" + this.answer;
+	}
+}
+
 function genQ(qType) {
 	var question;
 	switch (qType) {
@@ -100,6 +157,7 @@ function genQ(qType) {
 			break;
 		case "scale":
 			console.log("scale");
+			question = new Scale();
 			break;
 		case "chord":
 			console.log("chord");
