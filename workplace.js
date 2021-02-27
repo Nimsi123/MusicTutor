@@ -1,15 +1,15 @@
 const promptTagId = "prompt";
 const answerTagId = "answer";
 const inputSpaceTagId = "input-space";
-const inputTagId = "input";
 
 const submitButtonId = "submit";
 const nextButtonId = "next";
 
 function submitOnClick() {
+	/** Logic for the onclick attribute of the submit button. */
 
 	var question = document.getElementById(submitButtonId).question;
-	question.validateAnswer(inputTagId, answerTagId);
+	question.validateAnswer(answerTagId);
 
 	document.getElementById(submitButtonId).style.visibility  = "hidden";
 	document.getElementById(inputSpaceTagId).style.visibility = "hidden";
@@ -18,6 +18,7 @@ function submitOnClick() {
 }
 
 function nextOnClick(qType) {
+	/** Logic for the onclick attribute of the next button. */
 
 	var question = genQ(qType);
 	question.postPrompt(promptTagId);
@@ -32,6 +33,9 @@ function nextOnClick(qType) {
 }
 
 function setNextOnClick(qType) {
+	/** Assigns the onclick attribute for the next button. This function is called whenever the user changes
+		the type of question to practice. Also, this function sets the first question on the page.
+	*/
 	document.getElementById(nextButtonId).onclick = function () {
 		nextOnClick(qType);
 	};

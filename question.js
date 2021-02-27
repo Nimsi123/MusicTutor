@@ -25,14 +25,16 @@ class Question {
 	clearInput(inputId) {
 	}
 
-	/** Validates the user's input at inputID. Outputs the answer to answerID. 
+	/** Validates the user's input. Outputs the answer to answerID. 
 	*/
-	validateAnswer(inputId, answerId) {
+	validateAnswer(answerId) {
 	}
 
 }
 
 class Interval extends Question {
+
+	static inputTagId = "input";
 
 	constructor() {
 		var qFeatures = gen_intervalQ();
@@ -46,41 +48,18 @@ class Interval extends Question {
 	*/
 	postInput(inputId) {
 		var elem = document.getElementById(inputId);
-		elem.innerHTML = "";
+		this.clearInput(elem);
 
-		/*
-		var form = jQuery.parseHTML(`
-			<form>
-			  <div class="form-group">
-			    <input class="form-control" id="input" placeholder="interval">
-			  </div>
-			</form>
-		`)[1];
-		*/
-
-		var command = "document.getElementById('" + inputTagId + "').innerHTML = this.innerHTML";
-		var buttons = "";
-		for (var i of intervals) {
-			buttons += `<button class="dropdown-item" onclick = "` + command + `">` + i + `</button>`;
-		}
-
-		var form = jQuery.parseHTML(`<div class="dropdown">
-		  <button id = "input" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    Interval
-		  </button>
-		  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-		    ` + buttons + `
-		  </div>
-		</div>`)[0];
-
-		elem.appendChild(form);
+		elem.appendChild(
+			_makeDropDown(intervals, "Interval", Interval.inputTagId)
+		);
 	}
 
 	/** Assumes that an input site already exists. Clears the input box. 
 	@override
 	*/
-	clearInput(inputId) {
-		console.log("clearInput");
+	clearInput(elem) {
+		elem.innerHTML = "";
 	}
 
 	/** Returns the user's input in a friendly format. */
@@ -91,17 +70,16 @@ class Interval extends Question {
 	/** Validates the user's input at inputID. Outputs the answer to answerID. 
 	@override
 	*/
-	validateAnswer(inputId, answerId) {
-		var userInput = this._getInput(inputId);
+	validateAnswer(answerId) {
+		var userInput = this._getInput(Interval.inputTagId);
 
-		var extraMessage;
+		var message;
 		if (userInput === this.answer) {
-			extraMessage = "CORRECT!";
+			message = "CORRECT!";
 		} else {
-			extraMessage = "Incorrect!";
+			message = "Incorrect! The answer is --> " + this.answer;
 		}
-
-		document.getElementById(answerId).innerHTML = extraMessage + "\n" + this.answer;
+		document.getElementById(answerId).innerHTML = message;
 	}
 }
 
@@ -119,35 +97,70 @@ class Scale extends Question {
 	*/
 	postInput(inputId) {
 		var elem = document.getElementById(inputId);
-		elem.innerHTML = "";
+		this.clearInput(elem);
 
-		var form = jQuery.parseHTML(`
-			<form>
-			  <div class="form-group">
-			    <input class="form-control" id="input" placeholder="scale">
-			  </div>
-			</form>
-		`)[1];
-
-		elem.appendChild(form);
+		elem.appendChild(
+			_makeRowOfDropDown(letters, " ", 8)
+		);
 	}
 
 	/** Assumes that an input site already exists. Clears the input box. 
 	@override
 	*/
-	clearInput(inputId) {
-		console.log("clearInput");
-	}
-
-	/** Returns the user's input in a friendly format. */
-	_getInput(inputId) {
+	clearInput(elem) {
+		elem.innerHTML = "";
 	}
 
 	/** Validates the user's input at inputID. Outputs the answer to answerID. 
 	@override
 	*/
-	validateAnswer(inputId, answerId) {
-		var userInput = document.getElementById(inputId).value;
+	validateAnswer(answerId) {
+		var userInput = _getInputFromRowOfDropDown();
+
+		var extraMessage;
+		if (userInput === this.answer) {
+			extraMessage = "CORRECT!";
+		} else {
+			extraMessage = "Incorrect!";
+		}
+
+		document.getElementById(answerId).innerHTML = extraMessage + "\n" + this.answer;
+	}
+}
+
+class Chord extends Question {
+
+	constructor() {
+		var qFeatures = gen_chordQ();
+		var prompt = "What is the " + qFeatures.chord_name + " chord?";
+		var answer = qFeatures.chord_indices;
+		super(prompt, answer);
+	}
+
+	/** Adds the input site to the HTML element with id = inputID. 
+	@override
+	*/
+	postInput(inputId) {
+		var elem = document.getElementById(inputId);
+		this.clearInput(elem);
+
+		elem.appendChild(
+			_makeRowOfDropDown(letters, " ", 3)
+		);
+	}
+
+	/** Assumes that an input site already exists. Clears the input box. 
+	@override
+	*/
+	clearInput(elem) {
+		elem.innerHTML = "";
+	}
+
+	/** Validates the user's input at inputID. Outputs the answer to answerID. 
+	@override
+	*/
+	validateAnswer(answerId) {
+		var userInput = _getInputFromRowOfDropDown();
 
 		var extraMessage;
 		if (userInput === this.answer) {
@@ -170,8 +183,57 @@ function genQ(qType) {
 			question = new Scale();
 			break;
 		case "chord":
-			console.log("chord");
+			question = new Chord();
 			break;
 	}
 	return question;
+}
+
+function _getInputFromRowOfDropDown(counts) {
+	var inputs = [];
+	for (var i = 0; i < counts; i++) {
+		inputs.push(
+			document.getElementById("inp" + i).innerHTML
+		);
+	}
+
+	return inputs;
+}
+
+function _makeRowOfDropDown(elements, startingEntry, number){
+	var scaleInput = jQuery.parseHTML(`<div class = "row" id = "input-space"></div>`)[0];
+
+	for (var i = 0; i < number; i++) {
+		var block = jQuery.parseHTML(`<div class = "col"></div>`)[0];
+		block.appendChild(
+			_makeDropDown(letters, startingEntry, "inp" + i)
+		);
+
+		scaleInput.appendChild(block);
+	}
+
+	return scaleInput;
+}
+
+function _makeDropDown(elements, startingEntry, replaceId) {
+	/** Creates a dropdown menu with `elements` entries and the starting string `startingEntry` */
+	
+	var command = "document.getElementById('" + replaceId + "').innerHTML = this.innerHTML";
+	var buttons = "";
+	for (var i of elements) {
+		buttons += `<button class="dropdown-item" onclick = "` + command + `">` + i + `</button>`;
+	}
+
+	var form = jQuery.parseHTML(`
+	<div class="dropdown">
+	  <button id = "` + replaceId + `" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    ` + startingEntry + `
+	  </button>
+	  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	    ` + buttons + `
+	  </div>
+	</div>`
+	)[1];
+
+	return form;
 }

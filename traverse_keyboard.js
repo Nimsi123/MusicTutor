@@ -23,6 +23,7 @@ var circ = {
 };
 
 var intervals = ["m2", "M2", "m3", "M3", "P4", ["aug4, d5, TT"], "P5", "m6", "M6", "m7", "M7"];
+var letters = ['Ab', 'A', 'A#', 'Bb', 'B', 'B#', "Cb", 'C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'E#', 'Fb', 'F', 'F#', 'Gb', 'G', 'G#'];
 var chords = ["major", "minor", "augmented", "diminished"];
 var accidentals = ["#", "b"];
 
@@ -117,6 +118,7 @@ function gen_chordQ() {
 	return {
 		"scale_type": type,
 		"root": root,
+		"chord_name": root + " " + type,
 		"chord_indices": [a, third, fifth]
 	};
 }
