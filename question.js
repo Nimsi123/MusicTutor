@@ -6,14 +6,12 @@ class Question {
 	*/
 
 	constructor(prompt, answer) {
-		console.log("super");
 		this.prompt = prompt;
 		this.answer = answer;
 	}
 
 	postPrompt(promptId) {
 		/** Adds the prompt text to the HTML element with id = promptID. */
-		console.log("postPrompt");
 		document.getElementById(promptId).innerHTML = this.prompt;
 	}
 
@@ -47,7 +45,6 @@ class Interval extends Question {
 	@override
 	*/
 	postInput(inputId) {
-		console.log("postInput");
 		var elem = document.getElementById(inputId);
 		elem.innerHTML = "";
 
@@ -77,7 +74,6 @@ class Interval extends Question {
 	@override
 	*/
 	validateAnswer(inputId, answerId) {
-		console.log("validateAnswer");
 		var userInput = document.getElementById(inputId).value;
 
 		var extraMessage;
@@ -104,7 +100,6 @@ class Scale extends Question {
 	@override
 	*/
 	postInput(inputId) {
-		console.log("postInput");
 		var elem = document.getElementById(inputId);
 		elem.innerHTML = "";
 
@@ -134,7 +129,6 @@ class Scale extends Question {
 	@override
 	*/
 	validateAnswer(inputId, answerId) {
-		console.log("validateAnswer");
 		var userInput = document.getElementById(inputId).value;
 
 		var extraMessage;
@@ -152,11 +146,9 @@ function genQ(qType) {
 	var question;
 	switch (qType) {
 		case "interval":
-			console.log("interval");
 			question = new Interval();
 			break;
 		case "scale":
-			console.log("scale");
 			question = new Scale();
 			break;
 		case "chord":
