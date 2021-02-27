@@ -147,7 +147,7 @@ function _applyAccidentals(note, accidental, to_change) {
 	/** Returns a list of keys starting at note where accidental is appended to letters in to_change. */
 	
 	var scale = [];
-	for (var i = 0, c = whites.indexOf(note); i < whites.length; i++) {
+	for (var i = 0, c = whites.indexOf(note); i <= whites.length; i++) {
 		var letter = whites[(c + i) % whites.length];
 
 		if (to_change.includes(letter)) {
