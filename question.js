@@ -36,7 +36,7 @@ class Interval extends Question {
 
 	constructor() {
 		var qFeatures = gen_intervalQ();
-		var prompt = "What is the inverval between " + qFeatures.start + " and " + qFeatures.end + "?";
+		var prompt = "What is the inverval between " + qFeatures.start + " and " + qFeatures.end + ", ascending?";
 		var answer = qFeatures.interval;
 		super(prompt, answer);
 	}
@@ -48,6 +48,7 @@ class Interval extends Question {
 		var elem = document.getElementById(inputId);
 		elem.innerHTML = "";
 
+		/*
 		var form = jQuery.parseHTML(`
 			<form>
 			  <div class="form-group">
@@ -55,6 +56,22 @@ class Interval extends Question {
 			  </div>
 			</form>
 		`)[1];
+		*/
+
+		var command = "document.getElementById('" + inputTagId + "').innerHTML = this.innerHTML";
+		var buttons = "";
+		for (var i of intervals) {
+			buttons += `<button class="dropdown-item" onclick = "` + command + `">` + i + `</button>`;
+		}
+
+		var form = jQuery.parseHTML(`<div class="dropdown">
+		  <button id = "input" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    Interval
+		  </button>
+		  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		    ` + buttons + `
+		  </div>
+		</div>`)[0];
 
 		elem.appendChild(form);
 	}
@@ -68,13 +85,14 @@ class Interval extends Question {
 
 	/** Returns the user's input in a friendly format. */
 	_getInput(inputId) {
+		return document.getElementById(inputId).innerHTML;
 	}
 
 	/** Validates the user's input at inputID. Outputs the answer to answerID. 
 	@override
 	*/
 	validateAnswer(inputId, answerId) {
-		var userInput = document.getElementById(inputId).value;
+		var userInput = this._getInput(inputId);
 
 		var extraMessage;
 		if (userInput === this.answer) {
