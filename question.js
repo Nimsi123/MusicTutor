@@ -118,7 +118,7 @@ class Scale extends Question {
 		var userInput = _getInputFromRowOfDropDown(8);
 
 		var message;
-		if (userInput === this.answer) {
+		if (JSON.stringify(userInput) === JSON.stringify(this.answer)) {
 			message = "CORRECT!";
 		} else {
 			message = "Incorrect! The answer is --> " + this.answer;
