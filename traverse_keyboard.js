@@ -41,6 +41,16 @@ function choose_randFromValues(collection, key) {
 	return vals;
 }
 
+function find_key(collection, value) {
+	for (var key in collection) {
+		if (collection[key].includes(value)) {
+			return key;
+		}
+	}
+	return -69;
+	//throw new Error("Value: " + value + " not found in dictionary " + collection);
+}
+
 function _interval_genVals() {
 	/** Returns two different values in the range [0, 12). */
 	var a = Math.floor(Math.random() * 12);
@@ -115,11 +125,21 @@ function gen_chordQ() {
 	third = (a + third_disp) % 12;
 	fifth = (a + fifth_disp) % 12;
 
+	var indices = [a, third, fifth];
+
+	var chord_letters = [];
+	for (var i of indices) {
+		chord_letters.push(
+			choose_randFromValues(keyboard, i)
+		);
+	}
+
 	return {
 		"scale_type": type,
 		"root": root,
 		"chord_name": root + " " + type,
-		"chord_indices": [a, third, fifth]
+		"chord_indices": indices,
+		"chord_non_exact_answer": chord_letters
 	};
 }
 

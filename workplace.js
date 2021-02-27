@@ -12,7 +12,7 @@ function submitOnClick() {
 	question.validateAnswer(answerTagId);
 
 	document.getElementById(submitButtonId).style.visibility  = "hidden";
-	document.getElementById(inputSpaceTagId).style.visibility = "hidden";
+	//document.getElementById(inputSpaceTagId).style.visibility = "hidden";
 	document.getElementById(nextButtonId).style.visibility    = "visible";
 	document.getElementById(answerTagId).style.visibility     = "visible";
 }

@@ -115,26 +115,26 @@ class Scale extends Question {
 	@override
 	*/
 	validateAnswer(answerId) {
-		var userInput = _getInputFromRowOfDropDown();
+		var userInput = _getInputFromRowOfDropDown(8);
 
-		var extraMessage;
+		var message;
 		if (userInput === this.answer) {
-			extraMessage = "CORRECT!";
+			message = "CORRECT!";
 		} else {
-			extraMessage = "Incorrect!";
+			message = "Incorrect! The answer is --> " + this.answer;
 		}
-
-		document.getElementById(answerId).innerHTML = extraMessage + "\n" + this.answer;
+		document.getElementById(answerId).innerHTML = message;
 	}
 }
 
 class Chord extends Question {
 
 	constructor() {
+		super();
 		var qFeatures = gen_chordQ();
-		var prompt = "What is the " + qFeatures.chord_name + " chord?";
-		var answer = qFeatures.chord_indices;
-		super(prompt, answer);
+		this.prompt = "What is the " + qFeatures.chord_name + " chord?";
+		this.answer = qFeatures.chord_non_exact_answer;
+		this.exact_answer = qFeatures.chord_indices;
 	}
 
 	/** Adds the input site to the HTML element with id = inputID. 
@@ -160,16 +160,21 @@ class Chord extends Question {
 	@override
 	*/
 	validateAnswer(answerId) {
-		var userInput = _getInputFromRowOfDropDown();
-
-		var extraMessage;
-		if (userInput === this.answer) {
-			extraMessage = "CORRECT!";
-		} else {
-			extraMessage = "Incorrect!";
+		var userInput = _getInputFromRowOfDropDown(3);
+		var indices = [];
+		for (var letter of userInput) {
+			indices.push(
+				parseInt(find_key(keyboard, letter))
+			);
 		}
 
-		document.getElementById(answerId).innerHTML = extraMessage + "\n" + this.answer;
+		var message;
+		if (JSON.stringify(indices) === JSON.stringify(this.exact_answer)) {
+			message = "CORRECT!";
+		} else {
+			message = "Incorrect! The answer is --> " + this.answer;
+		}
+		document.getElementById(answerId).innerHTML = message;
 	}
 }
 
@@ -190,6 +195,9 @@ function genQ(qType) {
 }
 
 function _getInputFromRowOfDropDown(counts) {
+	/** Assumes the user is inputting data into an input structure returned from `_makeRowOfDropDown` 
+	Returns a list.*/
+
 	var inputs = [];
 	for (var i = 0; i < counts; i++) {
 		inputs.push(
@@ -201,6 +209,8 @@ function _getInputFromRowOfDropDown(counts) {
 }
 
 function _makeRowOfDropDown(elements, startingEntry, number){
+	/** Returns a DOM object. It is many columns within a row. Within each column is a dropdown menu. */
+
 	var scaleInput = jQuery.parseHTML(`<div class = "row" id = "input-space"></div>`)[0];
 
 	for (var i = 0; i < number; i++) {
