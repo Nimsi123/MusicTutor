@@ -35,20 +35,26 @@
 	
 		<div id = "Getting-Started" class = "container anchored">
 			<div class="text-center jumbotron">
-				<p>How would you like to practice?</p>
-				<button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='#Instant-Feedback'">
-					Instant Feedback Practice
-				</button>
-				<button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='#Worksheet'">
-					Build a Worksheet!
-				</button>
+				<h1>Welcome to MusicTutor, Decathletes!</h1>
+				<!--When there is more than one way to practice.-->
+				<!--
+					<p>How would you like to practice?</p>
+					<button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='#Instant-Feedback'">
+						Instant Feedback Practice
+					</button>
+					<button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='#Worksheet'">
+						Build a Worksheet!
+					</button>
+				-->
+				<br></br>
+				<p>As a former Academic Decathlon competitor, I thought students like myself could benefit from 
+					mechanical practice with basic music theory questions. MusicTutor randomly generates 
+					a practically unlimited number of practice questions. I developed MusicTutor at first for 
+					my team, and I later developed this interactive website for students across the country. 
+					I hope you'll find it useful!
+				</p>
+				
 			</div>
-		</div>
-
-		<div id = "About" class = "container anchored">
-			<h3>About</h3>
-			<p>Shalomie, my homie!</p>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 		</div>
 
 		<div id = "Instant-Feedback" class = "container anchored">
@@ -81,8 +87,8 @@
 
 			<div id = "workplace" class = "container anchored" style = "height: 300px;">
 				<div class = "row" style = "height: 100px">
-					<div id = "prompt" class = "col">
-						<div class = "text-center">Choose a question type above!</div>
+					<div id = "prompt" class = "col-2">
+						<div class = "text-center">Press one of the buttons above!</div>
 					</div>
 				</div>
 				<div class = "row" style = "height: 100px">
@@ -104,6 +110,7 @@
 					</div>
 				</div>
 			</div>
+			<hr>
 		</div>
 
 		<div id = "Worksheet" class = "container anchored" style = "padding-bottom: 50px; display: none;">
@@ -116,12 +123,12 @@
 			</div>
 
 			<div class = "row">
-				<div class = "col-6">
+				<div class = "col-4">
 					
 					<div class = "container anchored" style = "height: 100px">
 						<div class = "row" style = "height: 40px">
 							<div class = "col-8">
-								Question description.
+								Interval
 							</div>
 							<div class = "col-4">
 								<form>
@@ -133,17 +140,17 @@
 						</div>
 						<div class = "row" style = "height: 60px">
 							<div class = "col">
-								Example & Answer.
+								Example: What is the inverval between G and D#, ascending?
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class = "col-6">
+				<div class = "col-4">
 					
 					<div class = "container anchored" style = "height: 100px">
 						<div class = "row" style = "height: 40px">
 							<div class = "col-8">
-								Question description.
+								Scale
 							</div>
 							<div class = "col-4">
 								<form>
@@ -155,13 +162,36 @@
 						</div>
 						<div class = "row" style = "height: 60px">
 							<div class = "col">
-								Example & Answer.
+								Example: What is the scale of Gb major?
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class = "col-4">
+					
+					<div class = "container anchored" style = "height: 100px">
+						<div class = "row" style = "height: 40px">
+							<div class = "col-8">
+								Chord
+							</div>
+							<div class = "col-4">
+								<form>
+								  <div class="form-group">
+								    <input class="form-control" id="q-type1" placeholder="#">
+								  </div>
+								</form>
+							</div>
+						</div>
+						<div class = "row" style = "height: 60px">
+							<div class = "col">
+								Example: What is the Db augmented chord?
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
+			<!--
 			<div class = "row">
 				<div class = "col-6">
 					
@@ -255,6 +285,7 @@
 					</div>
 				</div>
 			</div>
+			-->
 
 			<div class="text-right" style = "padding-top: 50px;">
 				<button type="button" class="btn btn-primary btn-sm" onclick="">
@@ -265,9 +296,7 @@
 
 		<!-- Footer -->
 		<footer class="bg-light text-center text-lg-start">
-
-		  <p>Not sure what to put here just yet.</p>
-
+		  <p>Shoutout Palisades Charter High School!</p>
 		</footer>
 
 	<script src = "q_gen_logic.js"></script>
