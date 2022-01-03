@@ -1,7 +1,6 @@
 const promptTagId = "prompt";
 const answerTagId = "answer";
 const inputSpaceTagId = "input-space";
-
 const submitButtonId = "submit";
 const nextButtonId = "next";
 
@@ -20,7 +19,7 @@ function submitOnClick() {
 function nextOnClick(qType) {
 	/** Logic for the onclick attribute of the next button. */
 
-	var question = genQ(qType);
+	var question = generate_one_question(qType);
 	question.postPrompt(promptTagId);
 	question.postInput(inputSpaceTagId);
 

@@ -1,3 +1,6 @@
+// this file encapsulates the question generation logic
+
+// helper functions to main question generators
 function _interval_genVals() {
 	/** Returns two different values in the range [0, 12). */
 	var a = Math.floor(Math.random() * 12);
@@ -51,6 +54,7 @@ function _applyAccidentals(note, accidental, to_change) {
 	return scale;
 }
 
+// main question generators
 function gen_intervalQ() {
 	var a, b;
 	[a, b] = _interval_genVals();
@@ -91,11 +95,11 @@ function gen_chordQ() {
 	}
 
 	return {
-		"scale_type": type,
-		"root": root,
-		"chord_name": root + " " + type,
-		"chord_indices": indices,
-		"chord_non_exact_answer": chord_letters
+		scale_type: type,
+		root: root,
+		chord_name: root + " " + type,
+		chord_indices: indices,
+		chord_non_exact_answer: chord_letters
 	};
 }
 
@@ -115,7 +119,7 @@ function gen_scaleQ() {
 	var scale = _applyAccidentals(note.charAt(0), accidental, to_change);
 
 	return {
-		"scale_name": note + " major",
-		"scale": scale
+		scale_name: note + " major",
+		scale: scale
 	};
 }
